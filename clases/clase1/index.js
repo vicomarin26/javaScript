@@ -52,7 +52,7 @@ function myPrimeraFuncion() {
     if (mensajeSuma != null) {
         // document.getElementById("sumaCompleta").innerHTML = mensajeSuma;
         // correcto
-        swal('Primera Prueba de javaScript', mensajeSuma, 'success');
+        swal('Primera Prueba de javaScript', mensajeSuma, 'success', );
         // incorrecto
         // swal('Primera Prueba de javaScript', mensajeSuma, 'error');
     }
