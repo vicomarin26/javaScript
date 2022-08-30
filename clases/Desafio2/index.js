@@ -3,7 +3,7 @@
         num1 = parseInt(document.calculadora.valor1.value);
         num2 = parseInt(document.calculadora.valor2.value);
         res = num1 + num2;
-        alert("el resultado es de " + res);
+        swal("el resultado es de " + res);
     }
 
     function restar() {
@@ -11,7 +11,7 @@
         num1 = parseInt(document.calculadora.valor1.value);
         num2 = parseInt(document.calculadora.valor2.value);
         res = num1 - num2;
-        alert("el resultado es de " + res);
+        swal("el resultado es de " + res);
     }
 
     function multiplicar() {
@@ -19,7 +19,7 @@
         num1 = parseInt(document.calculadora.valor1.value);
         num2 = parseInt(document.calculadora.valor2.value);
         res = num1 * num2;
-        alert("el resultado es de " + res);
+        swal("el resultado es de " + res);
     }
 
     function dividir() {
@@ -27,5 +27,5 @@
         num1 = parseInt(document.calculadora.valor1.value);
         num2 = parseInt(document.calculadora.valor2.value);
         res = num1 / num2;
-        alert("el resultado es de " + res);
+        swal("el resultado es de " + res);
     }
