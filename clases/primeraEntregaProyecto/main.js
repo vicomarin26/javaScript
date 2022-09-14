@@ -131,4 +131,5 @@ function renderKeyboard() {
             current = e.target;
         });
     });
+
 }
