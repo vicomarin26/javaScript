@@ -16,13 +16,13 @@ const db = {
             id: 0,
             title: "Polarizado auto seda/hasback",
             price: 1000,
-            qty: 5,
+            qty: 0,
         },
         {
             id: 1,
             title: "Paint Protection Film (PPF)",
             price: 30000,
-            qty: 50,
+            qty: 5,
         },
         {
             id: 2,
@@ -48,7 +48,11 @@ const shoppingCart = {
                 if (shoppingCart.methods.hasInventory(id, qty + cartItem.qty)) {
                     cartItem.qty++;
                 } else {
-                    alert("No hay más inventario");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Rayos...',
+                        text: 'De momento no hay más existentes!',
+                    })
                 }
             } else {
                 shoppingCart.items.push({ id, qty });
@@ -100,7 +104,7 @@ function renderStore() {
             <div class="qty">${item.qty} unidades</div>
             <div class="actions"><button class="add" data-id="${
               item.id
-            }">Add to the shopping cart</button></div>
+            }">Añadir al carrito de la compra</button></div>
         </div>`;
     });
 
@@ -115,8 +119,19 @@ function renderStore() {
                 shoppingCart.methods.add(id, 1);
                 console.log(db, shoppingCart);
                 renderShoppingCart();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se agrego producto correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             } else {
-                alert("Ya no hay existencia de ese artículo");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Rayos...',
+                    text: 'Ya no hay existencia de ese artículo!',
+                })
             }
         });
     });
