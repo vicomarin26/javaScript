@@ -28,10 +28,10 @@ const db = {
             id: 2,
             title: "Wrap Vinil Mate ",
             price: 20000,
-            qty: 80,
+            qty: 0,
         },
         {
-            id: 2,
+            id: 3,
             title: "Wrap Vinil Tornazol",
             price: 25000,
             qty: 80,
@@ -102,7 +102,7 @@ function renderStore() {
             <div class="title">${item.title}</div>
             <div class="price">${numberToCurrency(item.price)}</div>
             <div class="qty">${item.qty} unidades</div>
-            <div class="actions"><button class="add" data-id="${
+            <div class="actions"><button class="add buttonA" data-id="${
               item.id
             }">Añadir al carrito de la compra</button></div>
         </div>`;
@@ -149,8 +149,8 @@ function renderShoppingCart() {
                   item.qty * dbItem.price
                 )}</div>
                 <div class="actions">
-                    <button class="addOne" data-id="${dbItem.id}">+</button>
-                    <button class="removeOne" data-id="${dbItem.id}">-</button>
+                    <button class="addOne buttonA" data-id="${dbItem.id}">+</button>
+                    <button class="removeOne buttonA" data-id="${dbItem.id}">-</button>
                 </div>
             </div>
         `;
@@ -208,3 +208,33 @@ function numberToCurrency(n) {
         currency: "USD",
     }).format(n);
 }
+
+
+const traerDatos = async() => {
+    const lista = document.getElementById("lista");
+    try {
+        const response = await fetch("data.json");
+        const data = await response.json();
+
+        data.forEach((publicacion) => {
+            const div = document.createElement("div");
+            div.innerHTML = `
+            <div class="item">
+            <div><div>
+            <div  class="title">User: ${publicacion.title}</div>
+            <div  class="price">$${publicacion.price}</div>
+            <div  class="qty"> ${publicacion.qty} Unidades</div>
+            <div class="actions"><button class="add buttonB" data-id="${
+                publicacion.id
+              }">Añadir al carrito de la compra</button></div>
+            </div>
+            `;
+
+            lista.append(div);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+traerDatos();
