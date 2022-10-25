@@ -88,7 +88,46 @@ const shoppingCart = {
             return db.items.find((item) => item.id === id).qty - qty >= 0;
         },
         purchase: () => {
-            db.methods.remove(shoppingCart.items);
+            // db.methods.remove(shoppingCart.items);
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: '¿Deseas finalizar la compra?',
+                text: "Una vez realizada la compra no existen devoluciones!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, finalizar compra!',
+                cancelButtonText: 'No, cancelar compra!',
+                reverseButtons: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Tu compra a sido confirmada. ',
+                        'En breve recibiras un correo para cangear tu compra!',
+                        'success'
+                    )
+                    document.querySelector("#shopping-cart-container").classList.remove("show");
+                    document.querySelector("#shopping-cart-container").classList.add("hide");
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelado',
+                        'Puedes continuar comprando :)',
+                        'error'
+                    )
+                    document.querySelector("#shopping-cart-container").classList.remove("show");
+                    document.querySelector("#shopping-cart-container").classList.add("hide");
+                }
+            })
+
         },
     },
 };
@@ -163,7 +202,7 @@ function renderShoppingCart() {
   </div>`;
     const purchaseButton =
         shoppingCart.items.length > 0 ?
-        `<div class="cart-actions">
+        `<div class="actions">
     <button id="bPurchase">Terminar compra</button>
   </div>` :
         "";
@@ -200,6 +239,7 @@ function renderShoppingCart() {
     if (bPurchase) {
         bPurchase.addEventListener("click", (e) => {
             shoppingCart.methods.purchase();
+
         });
     }
 }
