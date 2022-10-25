@@ -118,6 +118,8 @@ function renderStore() {
             if (item && item.qty - 1 > 0) {
                 shoppingCart.methods.add(id, 1);
                 console.log(db, shoppingCart);
+                guardar_localStorage('Productos', db);
+                guardar_localStorage('ProductosEnCesta', shoppingCart);
                 renderShoppingCart();
                 Swal.fire({
                     position: 'top-end',
@@ -166,6 +168,7 @@ function renderShoppingCart() {
   </div>` :
         "";
     const total = shoppingCart.methods.getTotal();
+    guardar_localStorage('Compras', total);
     const totalDiv = `<div class="total">Total: ${numberToCurrency(total)}</div>`;
     document.querySelector("#shopping-cart-container").innerHTML =
         closeButton + html.join("") + totalDiv + purchaseButton;
@@ -238,3 +241,8 @@ const traerDatos = async() => {
 };
 
 traerDatos();
+let nombreStorage, respuestaStorage;
+
+function guardar_localStorage(nombreStorage, respuestaStorage) {
+    localStorage.setItem(nombreStorage, JSON.stringify(respuestaStorage));
+}
